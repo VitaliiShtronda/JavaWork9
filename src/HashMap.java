@@ -1,10 +1,10 @@
 import java.util.Objects;
 
-class HashMap<K, B> {
+class HashMap<K, V> {
     private static final int DEFAULT_Bouquet = 16;
     private int bouquet = DEFAULT_Bouquet;
 
-    private HashMapLinkedList<K,B>[] bouquetArray;
+    private HashMapLinkedList<K,V>[] bouquetArray;
     private int size;
 
     public HashMap() {
@@ -13,7 +13,7 @@ class HashMap<K, B> {
         size = 0;
     }
 
-    private void createBouquet(HashMapLinkedList<K, B>[] bouquetArray, int bouquetQty) {
+    private void createBouquet(HashMapLinkedList<K, V>[] bouquetArray, int bouquetQty) {
         for (int i = 0; i < bouquet; i++) {
             bouquetArray[i] = new HashMapLinkedList<>();
         }
@@ -23,7 +23,7 @@ class HashMap<K, B> {
         return Objects.hash(key) % bouquet;
     }
 
-    public void put(K key, B value) {
+    public void put(K key, V value) {
         if (size == bouquet) {
             increaseBouquet();
         }
@@ -33,7 +33,7 @@ class HashMap<K, B> {
 
 
     private void increaseBouquet() {
-        HashMapLinkedList<K, B>[] newBouquetArray = new HashMapLinkedList[bouquet * 2];
+        HashMapLinkedList<K, V>[] newBouquetArray = new HashMapLinkedList[bouquet * 2];
         createBouquet(newBouquetArray, newBouquetArray.length);
         transferElementsToNewArray(bouquetArray, newBouquetArray);
         bouquetArray = newBouquetArray;
@@ -41,7 +41,7 @@ class HashMap<K, B> {
     }
 
 
-    private void transferElementsToNewArray(HashMapLinkedList<K, B>[] bouquetArray, HashMapLinkedList<K, B>[] newBouquetArray) {
+    private void transferElementsToNewArray(HashMapLinkedList<K, V>[] bouquetArray, HashMapLinkedList<K, V>[] newBouquetArray) {
         for (int i = 0; i < bouquet; i++) {
             while (bouquetArray[i].getFirstNode() != null) {
                 addElementToBouquet(bouquetArray[i].getFirstNode().getKey(),
@@ -52,7 +52,7 @@ class HashMap<K, B> {
         }
     }
 
-    private void addElementToBouquet(K key, B value, HashMapLinkedList<K, B>[] bouquetArray) {
+    private void addElementToBouquet(K key, V value, HashMapLinkedList<K, V>[] bouquetArray) {
         int bouquetNumber = getBouquetNumber(key);
         bouquetArray[bouquetNumber].add(key, value);
     }
@@ -74,7 +74,7 @@ class HashMap<K, B> {
         return size;
     }
 
-    public B get(K key) {
+    public V get(K key) {
         int bouquetNumber = getBouquetNumber(key);
         return bouquetArray[bouquetNumber].get(key);
 

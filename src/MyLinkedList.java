@@ -5,14 +5,16 @@ class MyLinkedList <T>{
     private Node<T> lastNode = null;
 
     public Node<T> getFirstNode() {
+
         return firstNode;
     }
 
     public Node<T> getLastNode() {
+
         return lastNode;
     }
 
-    public void add(Object value) {
+    public void  add(T value) {
         if (firstNode == null) {
             firstNode = new Node<>((T) value, null, null);
         } else if (lastNode == null) {
