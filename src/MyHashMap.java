@@ -1,13 +1,13 @@
 import java.util.Objects;
 
-class HashMap<K, V> {
+ class MyHashMap<K, V> {
     private static final int DEFAULT_BUCKET_QTY = 16;
     private int bucketQty = DEFAULT_BUCKET_QTY;
 
     private HashMapLinkedList<K,V>[] bucketArray;
     private int size;
 
-    public HashMap() {
+    public MyHashMap() {
         bucketArray = new HashMapLinkedList[DEFAULT_BUCKET_QTY];
         createBuckets(bucketArray, bucketArray.length);
         size = 0;
@@ -31,7 +31,7 @@ class HashMap<K, V> {
         size++;
     }
 
-    // Increase q-ty of buckets in buckedArray and redistributes all elements
+
     private void increaseBuckets() {
         HashMapLinkedList<K, V>[] newBucketArray = new HashMapLinkedList[bucketQty * 2];
         createBuckets(newBucketArray, newBucketArray.length);
@@ -40,7 +40,7 @@ class HashMap<K, V> {
         bucketQty *= 2;
     }
 
-    // Redistributes all elements to new bucketArray
+
     private void transferElementsToNewArray(HashMapLinkedList<K, V>[] bucketArray, HashMapLinkedList<K, V>[] newBucketArray) {
         for (int i = 0; i < bucketQty; i++) {
             while (bucketArray[i].getFirstNode() != null) {
