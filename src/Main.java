@@ -18,6 +18,7 @@ public class Main {
 
         myList.clear();
         System.out.println("Size after clearing: " + myList.size());
+
     }
 }
 
