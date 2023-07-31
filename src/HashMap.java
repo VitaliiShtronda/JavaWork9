@@ -1,72 +1,72 @@
 import java.util.Objects;
 
-class HashMap<K, V> {
-    private static final int DEFAULT_Bouquet = 16;
-    private int bouquet = DEFAULT_Bouquet;
+class MyHashMap<K, M> {
+    private static final int DEFAULT_BUCKET_QTY = 16;
+    private int bucketQty = DEFAULT_BUCKET_QTY;
 
-    private HashMapLinkedList<K,V>[] bouquetArray;
+    private HashMapLinkedList<K,M>[] bucketArray;
     private int size;
 
-    public HashMap() {
-        bouquetArray = new HashMapLinkedList[DEFAULT_Bouquet];
-        createBouquet(bouquetArray, bouquetArray.length);
+    public MyHashMap() {
+        bucketArray = new HashMapLinkedList[DEFAULT_BUCKET_QTY];
+        createBuckets(bucketArray, bucketArray.length);
         size = 0;
     }
 
-    private void createBouquet(HashMapLinkedList<K, V>[] bouquetArray, int bouquetQty) {
-        for (int i = 0; i < bouquet; i++) {
-            bouquetArray[i] = new HashMapLinkedList<>();
+    private void createBuckets(HashMapLinkedList<K, M>[] bucketArray, int bucketQty) {
+        for (int i = 0; i < bucketQty; i++) {
+            bucketArray[i] = new HashMapLinkedList<>();
         }
     }
 
-    private int getBouquetNumber(K key) {
-        return Objects.hash(key) % bouquet;
+    private int getBucketNumber(K key) {
+        return Objects.hash(key) % bucketQty;
     }
 
-    public void put(K key, V value) {
-        if (size == bouquet) {
-            increaseBouquet();
+    public void put(K key, M value) {
+        if (size == bucketQty) {
+            increaseBuckets();
         }
-        addElementToBouquet(key, value, bouquetArray);
+        addElementToBucket(key, value, bucketArray);
         size++;
     }
 
-
-    private void increaseBouquet() {
-        HashMapLinkedList<K, V>[] newBouquetArray = new HashMapLinkedList[bouquet * 2];
-        createBouquet(newBouquetArray, newBouquetArray.length);
-        transferElementsToNewArray(bouquetArray, newBouquetArray);
-        bouquetArray = newBouquetArray;
-        bouquet *= 2;
+    // Increase q-ty of buckets in buckedArray and redistributes all elements
+    private void increaseBuckets() {
+        HashMapLinkedList<K, M>[] newBucketArray = new HashMapLinkedList[bucketQty * 2];
+        createBuckets(newBucketArray, newBucketArray.length);
+        transferElementsToNewArray(bucketArray, newBucketArray);
+        bucketArray = newBucketArray;
+        bucketQty *= 2;
     }
 
-
-    private void transferElementsToNewArray(HashMapLinkedList<K, V>[] bouquetArray, HashMapLinkedList<K, V>[] newBouquetArray) {
-        for (int i = 0; i < bouquet; i++) {
-            while (bouquetArray[i].getFirstNode() != null) {
-                addElementToBouquet(bouquetArray[i].getFirstNode().getKey(),
-                        bouquetArray[i].getFirstNode().getValue(),
-                        newBouquetArray);
-                bouquetArray[i].remove(bouquetArray[i].getFirstNode().getKey());
+    // Redistributes all elements to new bucketArray
+    private void transferElementsToNewArray(HashMapLinkedList<K, M>[] bucketArray, HashMapLinkedList<K, M>[] newBucketArray) {
+        for (int i = 0; i < bucketQty; i++) {
+            while (bucketArray[i].getFirstNode() != null) {
+                addElementToBucket(bucketArray[i].getFirstNode().getKey(),
+                        bucketArray[i].getFirstNode().getValue(),
+                        newBucketArray);
+                bucketArray[i].remove(bucketArray[i].getFirstNode().getKey());
             }
         }
     }
 
-    private void addElementToBouquet(K key, V value, HashMapLinkedList<K, V>[] bouquetArray) {
-        int bouquetNumber = getBouquetNumber(key);
-        bouquetArray[bouquetNumber].add(key, value);
+    private void addElementToBucket(K key, M value, HashMapLinkedList<K, M>[] bucketArray) {
+        int bucketNumber = getBucketNumber(key);
+        bucketArray[bucketNumber].add(key, value);
     }
 
 
     public void remove(K key) {
-        int bouquetNumber = Objects.hash(key) % bouquet;
-        bouquetArray[bouquetNumber].remove(key);
+        int bucketNumber = Objects.hash(key) % bucketQty;
+        bucketArray[bucketNumber].remove(key);
         size--;
     }
 
     public void clear() {
-        bouquetArray = new HashMapLinkedList[DEFAULT_Bouquet];
-        createBouquet(bouquetArray, bouquetArray.length);
+        bucketArray = new HashMapLinkedList[DEFAULT_BUCKET_QTY];
+        createBuckets(bucketArray, bucketArray.length);
         size = 0;
     }
 
@@ -74,9 +74,9 @@ class HashMap<K, V> {
         return size;
     }
 
-    public V get(K key) {
-        int bouquetNumber = getBouquetNumber(key);
-        return bouquetArray[bouquetNumber].get(key);
+    public M get(K key) {
+        int bucketNumber = getBucketNumber(key);
+        return bucketArray[bucketNumber].get(key);
 
     }
 }
