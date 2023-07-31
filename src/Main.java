@@ -12,6 +12,7 @@ public class Main {
         System.out.println("Last element: " + myList.getLastNode().getValue());
 
         myList.remove(1);
+
         System.out.println("Size after removal: " + myList.size());
 
         System.out.println("Element at index 0: " + myList.get(0));
@@ -19,6 +20,8 @@ public class Main {
 
         myList.clear();
         System.out.println("Size after clearing: " + myList.size());
+
+
 
     }
 }
