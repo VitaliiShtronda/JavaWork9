@@ -7,6 +7,7 @@ class MyHashMap<K, M> {
     private HashMapLinkedList<K,M>[] bucketArray;
     private int size;
 
+
     public MyHashMap() {
         bucketArray = new HashMapLinkedList[DEFAULT_BUCKET_QTY];
         createBuckets(bucketArray, bucketArray.length);
