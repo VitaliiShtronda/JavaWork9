@@ -6,6 +6,7 @@ class MyArrayList<T> {
     private Object[] values = new Object[DEFAULT_ARRAY_CAPACITY];
     private int size = 0;
 
+
     public void add(T value) {
         resize();
         values[size] = value;
