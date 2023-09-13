@@ -1,5 +1,4 @@
 
-
 class HashMapLinkedList<K, V> {
     private int size = 0;
     private HashMapNode<K, V> firstNode = null;

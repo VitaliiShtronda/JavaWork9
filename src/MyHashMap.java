@@ -1,6 +1,6 @@
 import java.util.Objects;
 
- class MyHashMap<K, V> {
+class MyHashMap<K, V> {
     private static final int DEFAULT_BUCKET_QTY = 16;
     private int bucketQty = DEFAULT_BUCKET_QTY;
 

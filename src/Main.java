@@ -1,5 +1,6 @@
-class Main {
+class Main{
     public static void main(String[] args) {
+
         // MyArrayList test
         MyArrayList<Integer> myArrayList = new MyArrayList<>();
         myArrayList.add(10);
@@ -12,6 +13,7 @@ class Main {
         System.out.println("MyArrayList after removing element at index 1: " + myArrayList);
         myArrayList.clear();
         System.out.println("MyArrayList after clear: " + myArrayList);
+
 
         // MyLinkedList test
         MyLinkedList<String> myLinkedList = new MyLinkedList<>();
@@ -38,4 +40,5 @@ class Main {
         myStack.clear();
         System.out.println("MyStack size after clear: " + myStack.size());
     }
+
 }

@@ -1,6 +1,5 @@
 class Node<T> {
 
-
     private T value;
     private Node<T> prevNode;
     private Node<T> nextNode;

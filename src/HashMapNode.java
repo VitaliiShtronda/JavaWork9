@@ -41,4 +41,3 @@ class HashMapNode<K, V> {
         this.nextNode = nextNode;
     }
 }
-
